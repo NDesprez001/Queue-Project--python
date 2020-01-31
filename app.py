@@ -7,9 +7,9 @@ if sys.version_info[0] < 3:
 import json
 from DataStructures import Queue
 
-# there queue has to be declared globally (outside any other function)
+# their queue has to be declared globally (outside any other function)
 # that way all methods have access to it
-queue = Queue(mode="FIFO")
+queue = Queue(mode="FIFO", current_queue=[])
 
 def show_main_menu():
     print('''
@@ -31,7 +31,7 @@ def print_queue():
         
 def start():
     
-    print("\nHello, this is the Command Line Interface for a Queue Managment application.");
+    print("\nHello, this is the Command Line Interface for a Queue Managment application.")
     while True:
         
         option = show_main_menu()
@@ -40,6 +40,12 @@ def start():
             option = int(option)
         except ValueError:
             print("Invalid option "+str(option))
+            return None
+        def export_queue():
+            with open('queue.json','r') as jfile:
+                retrive_queue = json.load(jfile)
+        def import_queue():
+            pass
 
         # add your options here using conditionals (if)
         if option == 3:
@@ -47,6 +53,18 @@ def start():
         elif option == 6:
             print("Bye bye!")
             return None
+        elif option == 1:
+            item = input('Enter the item here: ')
+            queue.enqueue(item)
+            print(f'{item}','has successfully been added!')
+        elif option == 4:
+            queue.size()
+        elif queue._queue == []:
+            print('The list is empty')
+            return None
+        elif option == 2:
+            queue.dequeue()
+            print(f'{queue.dequeue()}','has been removed')
         else:
             print("Invalid option "+str(option))
 
