@@ -42,8 +42,9 @@ def start():
             print("Invalid option "+str(option))
             return None
         def export_queue():
-            with open('queue.json','r') as jfile:
-                retrive_queue = json.load(jfile)
+            with open('queue.json','w') as jfile:
+                json.dump(queue._queue,jfile)
+            return queue._queue
         def import_queue():
             pass
 
@@ -57,14 +58,14 @@ def start():
             item = input('Enter the item here: ')
             queue.enqueue(item)
             print(f'{item}','has successfully been added!')
-        elif option == 4:
-            queue.size()
         elif queue._queue == []:
-            print('The list is empty')
+            print("The list is empty, couldn't perform action...")
             return None
         elif option == 2:
-            queue.dequeue()
             print(f'{queue.dequeue()}','has been removed')
+        elif option == 4:
+            export_queue()
+            print('Successfully exported to file')
         else:
             print("Invalid option "+str(option))
 
